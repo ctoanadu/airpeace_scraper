@@ -1,9 +1,10 @@
+import json
 import time
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
 
 
 class AirPeace:
@@ -34,14 +35,6 @@ class AirPeace:
         html_content = driver.page_source
         driver.quit()
         return html_content
-
-    def extract_html(self):
-
-        html_content = self.capture_html_page()
-        soup = BeautifulSoup(html_content, "html.parser")
-        dep = soup.find(id=flight_way)
-        list_of_flight_info_dep = dep.find_all("div", class_="row w-100 no-gutters")
-        return list_of_flight_info_dep
 
     def tranaform(self, stringss):
 
@@ -90,13 +83,22 @@ class AirPeace:
 
         return dictt
 
-    def final(self):
+    def get_flight_info(self):
+        html_content = self.capture_html_page()
+        soup = BeautifulSoup(html_content, "html.parser")
         final_dict = []
-        departure_list = self.extract_html("availability-flight-table-0")
+        departure_list = soup.find(id="availability-flight-table-0").find_all(
+            "div", class_="row w-100 no-gutters"
+        )
         departure = list(map(self.tranaform, departure_list))
 
-        return_list = self.extract_html("availability-flight-table-1")
-        returns = list(map(self.tranaform, return_list))
+        try:
+            return_list = soup.find(id="availability-flight-table-1").find_all(
+                "div", class_="row w-100 no-gutters"
+            )
+            returns = list(map(self.tranaform, return_list))
+        except Exception as e:
+            print("This is oneway")
 
         if self.trip_type == "ROUND_TRIP":
             data = {"Departure": departure, "Return": returns}
@@ -106,9 +108,11 @@ class AirPeace:
             data = data = {"Departure": departure}
             final_dict.append(data)
 
-        return final_dict
+        json_data = json.dumps(data, indent=4, ensure_ascii=False)
+
+        return json_data
 
 
 if __name__ == "__main__":
     airpeace = AirPeace("ABV", "LOS", "16.04.2024", "ONE_WAY")
-    print(airpeace.final())
+    print(airpeace.get_flight_info())
