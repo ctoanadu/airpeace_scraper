@@ -12,7 +12,7 @@ To use this web scraper, follow these steps:
 1. Clone or download the repository to your local machine:
 
 ```
-pip install -e git+https://github.com/ctoanadu/airpeace_scraper.git
+pip install git+https://github.com/ctoanadu/airpeace_scraper.git
 ```
 
 2. Install the required dependencies using pip:
