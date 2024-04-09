@@ -8,15 +8,15 @@ from selenium import webdriver
 logger = logging.getLogger(__name__)
 
 
-class AirPeace:
+class AirPeaceFlightCheck:
     """
     Class to query flights on Airpeace
     """
 
     def __init__(
         self,
-        fly_from,
-        fly_to,
+        departure_city,
+        arrival_city,
         dep_date,
         trip_type,
         return_date=None,
@@ -30,8 +30,8 @@ class AirPeace:
         trip_type: Type of trip (One way or round trip)
         return_date: Date of return flight
         """
-        self.fly_from = fly_from
-        self.fly_to = fly_to
+        self.departure_city = departure_city
+        self.arrival_city = arrival_city
         self.dep_date = dep_date
         self.trip_type = trip_type
         self.logger = logger
@@ -169,6 +169,4 @@ class AirPeace:
         return json_data
 
 
-if __name__ == "__main__":
-    airpeace = AirPeace("ABV", "LOS", "16.04.2024", "ONE_WAY", "20.04.2024")
-    print(airpeace.get_flight_info())
+

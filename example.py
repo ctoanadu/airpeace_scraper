@@ -1,7 +1,5 @@
-import logging
+from src.app_airpeace import AirPeaceFlightCheck
 
+airpeace= AirPeaceFlightCheck("ABV", "LOS", "16.04.2024", "ROUND_TRIP", "20.04.2024")
 
-logger=logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
-
-logger.info('info')
+print (airpeace.get_flight_info())
