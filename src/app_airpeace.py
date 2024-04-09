@@ -47,7 +47,7 @@ class AirPeaceFlightCheck:
         Returns:
             str: Url of airpeace
         """
-        url1 = f"https://book-airpeace.crane.aero/ibe/availability?tripType={self.trip_type}&depPort={self.fly_from}&arrPort={self.fly_to}&departureDate={self.dep_date}%20%20%20%20%20%20%20%20&adult=1&child=0&infant=0&returnDate={self.return_date}&lang=en"
+        url1 = f"https://book-airpeace.crane.aero/ibe/availability?tripType={self.trip_type}&depPort={self.departure_city}&arrPort={self.arrival_city}&departureDate={self.dep_date}%20%20%20%20%20%20%20%20&adult=1&child=0&infant=0&returnDate={self.return_date}&lang=en"
         return url1
 
 

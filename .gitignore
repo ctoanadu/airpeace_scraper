@@ -3,3 +3,9 @@
 .idea/
 venv/
 __pycache__/
+
+
+# PyPI
+dist
+build
+*.egg-info
